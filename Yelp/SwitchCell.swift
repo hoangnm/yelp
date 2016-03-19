@@ -17,6 +17,7 @@ class SwitchCell: UITableViewCell {
     @IBOutlet weak var onSwitch: UISwitch!
     
     weak var delegate: SwitchCellDelegate?
+    var type = "country"
     
     override func awakeFromNib() {
         super.awakeFromNib()

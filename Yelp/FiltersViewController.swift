@@ -20,6 +20,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var categories: [[String: String]]!
     var switchStates = [Int:Bool]()
+    var hasDeals = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,26 +54,58 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             filters["categories"] = selectedCategories
         }
         
+        filters["hasDeals"] = hasDeals
+        
         delegate?.filtersViewController?(self, didUpdateFilters: filters)
         
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        if section == 1 {
+            return categories.count
+        } else {
+            return 1
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
-        cell.delegate = self
-        cell.switchLabel.text = categories[indexPath.row]["name"]
-        cell.onSwitch.on = switchStates[indexPath.row] ?? false
-        return cell
+        if indexPath.section == 1 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
+            cell.delegate = self
+            cell.switchLabel.text = categories[indexPath.row]["name"]
+            cell.onSwitch.on = switchStates[indexPath.row] ?? false
+            cell.type = "country"
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
+            cell.delegate = self
+            cell.switchLabel.text = "Offering a Deal"
+            cell.onSwitch.on = hasDeals
+            cell.type = "deal"
+            return cell
+        }
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return ""
+        } else {
+            return "Category"
+        }
     }
     
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPathForCell(switchCell)!
-        switchStates[indexPath.row] = value
+        if switchCell.type == "country" {
+            switchStates[indexPath.row] = value
+        } else {
+            hasDeals = value
+        }
     }
     
     func yelpCategories() -> [[String: String]] {
