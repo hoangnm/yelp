@@ -27,13 +27,17 @@ class SwitchCell: UITableViewCell {
         self.contentView.layer.borderColor = UIColor(hue: 0.23, saturation: 0.01, brightness: 0.75, alpha: 0.6).CGColor
         self.contentView.layer.borderWidth = 0.8
         self.contentView.layer.cornerRadius = 3
-   
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func updateFrame() {
+        self.frame.size.width -= 20
+        self.frame.origin.x += 10
     }
     
     func switchValueChanged() {

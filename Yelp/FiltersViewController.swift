@@ -123,7 +123,6 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
                 } else {
                     cell.checkButton.setImage(UIImage(named: "round"), forState: .Normal)
                 }
-               // cell.checkButton.setImage(UIImage(named: "roundok"), forState: .Focused)
                 cell.checkLabel.text = sortOptions[indexPath.row - 1]
             }
             return cell
@@ -136,8 +135,6 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             return cell
         } else if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCellWithIdentifier("CheckCell", forIndexPath: indexPath) as! CheckCell
-            print(indexPath.row)
-            
             if indexPath.row == 0 {
                 cell.checkButton.setImage(UIImage(named: "expanddown"), forState: .Normal)
                 if selectedDistance != nil {
