@@ -27,6 +27,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     var showDistanceOptions = false
     var selectedOptions: Int?
     var selectedDistance: Int?
+    var viewAllCategories = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,7 +99,11 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
                 return 1
             }
         } else {
-            return categories.count
+            if viewAllCategories {
+                return categories.count
+            } else {
+                return 4
+            }
         }
     }
     
@@ -150,12 +155,17 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             }
             return cell
         } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
-            cell.delegate = self
-            cell.switchLabel.text = categories[indexPath.row]["name"]
-            cell.onSwitch.on = switchStates[indexPath.row] ?? false
-            cell.type = "country"
-            return cell
+            if viewAllCategories == false && indexPath.row == 3 {
+                let cell = tableView.dequeueReusableCellWithIdentifier("SeeAllCel", forIndexPath: indexPath)
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
+                cell.delegate = self
+                cell.switchLabel.text = categories[indexPath.row]["name"]
+                cell.onSwitch.on = switchStates[indexPath.row] ?? false
+                cell.type = "country"
+                return cell
+            }
         }
     }
     
@@ -177,6 +187,10 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             } else {
                 selectedDistance = indexPath.row
                 showDistanceOptions = false
+            }
+        } else if indexPath.section == 3 {
+            if indexPath.row == 3 {
+                viewAllCategories = true
             }
         }
         let sections = NSIndexSet(index: indexPath.section)
@@ -377,16 +391,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             ["name" : "Tapas/Small Plates", "code": "tapasmallplates"],
             ["name" : "Tex-Mex", "code": "tex-mex"],
             ["name" : "Thai", "code": "thai"],
-            ["name" : "Traditional Norwegian", "code": "norwegian"],
-            ["name" : "Traditional Swedish", "code": "traditional_swedish"],
-            ["name" : "Trattorie", "code": "trattorie"],
-            ["name" : "Turkish", "code": "turkish"],
-            ["name" : "Ukrainian", "code": "ukrainian"],
-            ["name" : "Uzbek", "code": "uzbek"],
             ["name" : "Vegan", "code": "vegan"],
-            ["name" : "Vegetarian", "code": "vegetarian"],
-            ["name" : "Venison", "code": "venison"],
-            ["name" : "Wok", "code": "wok"]]
+            ["name" : "Vegetarian", "code": "vegetarian"]]
         return categories
     }
 

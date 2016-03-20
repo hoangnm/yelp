@@ -225,6 +225,26 @@
                                             <outlet property="checkLabel" destination="n9L-DG-V9e" id="VUI-HT-gtc"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SeeAllCel" rowHeight="40" id="W3T-BY-WhJ">
+                                        <rect key="frame" x="0.0" y="172" width="320" height="40"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="W3T-BY-WhJ" id="FyA-ea-WeZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="See All" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vb8-Uj-GdX">
+                                                    <rect key="frame" x="134.5" y="10" width="51.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="vb8-Uj-GdX" firstAttribute="centerY" secondItem="FyA-ea-WeZ" secondAttribute="centerY" id="jGy-wh-wDu"/>
+                                                <constraint firstItem="vb8-Uj-GdX" firstAttribute="centerX" secondItem="FyA-ea-WeZ" secondAttribute="centerX" id="l6B-21-YCB"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
