@@ -8,11 +8,17 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FiltersViewControllerDelegate {
+class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, FiltersViewControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
     var businesses: [Business]!
+    let searchBar = UISearchBar()
+    var term = "Restaurants"
+    var categories = [String]()
+    var deals = false
+    var sort: YelpSortMode?
+    var distance: Float?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +32,10 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             self.businesses = businesses
             self.tableView.reloadData()
         })
+        
+        searchBar.searchBarStyle = .Prominent
+        searchBar.delegate = self
+        self.navigationItem.titleView = searchBar
 
 /* Example of Yelp search with more search options specified
         Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
@@ -59,6 +69,34 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.business = businesses[indexPath.row]
         return cell
     }
+    
+    // MARK: - UISearchbarDelegate
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        Business.searchWithTerm(term, sort: sort, categories: categories, deals: deals, distance: distance) { (businesses: [Business]!, error: NSError!) -> Void in
+            self.businesses = businesses
+            self.tableView.reloadData()
+        }
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        term = searchText
+    }
+
 
     
     // MARK: - Navigation
@@ -73,22 +111,23 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
-        var categories = [String]()
+        
         if filters["categories"] != nil {
             categories = filters["categories"] as! [String]
         }
-        let deals = filters["hasDeals"] as! Bool
-        var sort: YelpSortMode?
+        deals = filters["hasDeals"] as! Bool
+        
         if filters["sort"] != nil {
             let index = filters["sort"] as! Int
             sort = YelpSortMode(rawValue: index)
         }
-        var distance: Float?
+        
         if filters["distance"] != nil {
             distance = filters["distance"] as? Float
             distance = distance! * 1609.344
         }
-        Business.searchWithTerm("Restaurants", sort: sort, categories: categories, deals: deals, distance: distance) { (businesses: [Business]!, error: NSError!) -> Void in
+        
+        Business.searchWithTerm(term, sort: sort, categories: categories, deals: deals, distance: distance) { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
         }

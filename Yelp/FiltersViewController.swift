@@ -195,13 +195,9 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func yelpCategories() -> [[String: String]] {
-        let categories = [["name" : "Afghan", "code": "afghani"],
-            ["name" : "African", "code": "african"],
+        let categories = [["name" : "Vietnamese", "code": "vietnamese"],
             ["name" : "American, New", "code": "newamerican"],
             ["name" : "American, Traditional", "code": "tradamerican"],
-            ["name" : "Arabian", "code": "arabian"],
-            ["name" : "Argentine", "code": "argentine"],
-            ["name" : "Armenian", "code": "armenian"],
             ["name" : "Asian Fusion", "code": "asianfusion"],
             ["name" : "Asturian", "code": "asturian"],
             ["name" : "Australian", "code": "australian"],
@@ -360,10 +356,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             ["name" : "Vegan", "code": "vegan"],
             ["name" : "Vegetarian", "code": "vegetarian"],
             ["name" : "Venison", "code": "venison"],
-            ["name" : "Vietnamese", "code": "vietnamese"],
-            ["name" : "Wok", "code": "wok"],
-            ["name" : "Wraps", "code": "wraps"],
-            ["name" : "Yugoslav", "code": "yugoslav"]]
+            ["name" : "Wok", "code": "wok"]]
         return categories
     }
 
