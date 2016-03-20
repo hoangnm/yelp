@@ -21,9 +21,12 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     var categories: [[String: String]]!
     var switchStates = [Int:Bool]()
     var sortOptions = [Int: String]()
+    var distanceOptions = [Int]()
     var hasDeals = false
-    var showSortOptions = true
+    var showSortOptions = false
+    var showDistanceOptions = false
     var selectedOptions: Int?
+    var selectedDistance: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +34,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         // Do any additional setup after loading the view.
         categories = yelpCategories()
         sortOptions = sortByOptions()
+        distanceOptions = [1, 5, 10]
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -61,8 +65,13 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         filters["hasDeals"] = hasDeals
         
         if selectedOptions != nil {
-            filters["sort"] = selectedOptions
+            filters["sort"] = selectedOptions! - 1
         }
+        
+        if selectedDistance != nil {
+            filters["distance"] = distanceOptions[selectedDistance! - 1]
+        }
+        
         
         delegate?.filtersViewController?(self, didUpdateFilters: filters)
         
@@ -75,6 +84,12 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         } else if section == 1 {
             if showSortOptions {
                 return sortOptions.count + 1
+            } else {
+                return 1
+            }
+        } else if section == 2 {
+            if showDistanceOptions {
+                return distanceOptions.count + 1
             } else {
                 return 1
             }
@@ -104,6 +119,19 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             cell.onSwitch.on = hasDeals
             cell.type = "deal"
             return cell
+        } else if indexPath.section == 2 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("CheckCell", forIndexPath: indexPath) as! CheckCell
+            if indexPath.row == 0 {
+                cell.checkButton.setImage(UIImage(named: "expanddown"), forState: .Normal)
+                if selectedDistance != nil {
+                    cell.checkLabel.text = String(distanceOptions[selectedDistance! - 1]) + "miles"
+                } else {
+                    cell.checkLabel.text = "Auto"
+                }
+            } else {
+                cell.checkLabel.text = String(distanceOptions[indexPath.row - 1]) + "miles"
+            }
+            return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
             cell.delegate = self
@@ -115,7 +143,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -123,6 +151,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             return ""
         } else if section == 1 {
             return "Sort By"
+        } else if section == 2 {
+            return "Distance"
         } else {
             return "Category"
         }
@@ -136,6 +166,15 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             } else {
                 selectedOptions = indexPath.row
                 showSortOptions = false
+                tableView.reloadData()
+            }
+        } else if indexPath.section == 2 {
+            if indexPath.row == 0 {
+                showDistanceOptions = !showDistanceOptions
+                tableView.reloadData()
+            } else {
+                selectedDistance = indexPath.row
+                showDistanceOptions = false
                 tableView.reloadData()
             }
         }

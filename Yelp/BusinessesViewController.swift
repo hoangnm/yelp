@@ -81,9 +81,14 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         var sort: YelpSortMode?
         if filters["sort"] != nil {
             let index = filters["sort"] as! Int
-            sort = YelpSortMode(rawValue: index - 1)
+            sort = YelpSortMode(rawValue: index)
         }
-        Business.searchWithTerm("Restaurants", sort: sort, categories: categories, deals: deals) { (businesses: [Business]!, error: NSError!) -> Void in
+        var distance: Float?
+        if filters["distance"] != nil {
+            distance = filters["distance"] as? Float
+            distance = distance! * 1609.344
+        }
+        Business.searchWithTerm("Restaurants", sort: sort, categories: categories, deals: deals, distance: distance) { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
         }
