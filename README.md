@@ -30,14 +30,14 @@ The following **optional** features are implemented:
    - [x] Categories should show a subset of the full list with a "See All" row to expand. Category list is [here](http://www.yelp.com/developers/documentation/category_list).
 - [ ] Implement the restaurant detail page.
 
-The following **additional** features are implemented:
-
-- [ ] List anything else that you can get done to improve the app functionality!
-
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. What were the most challenging or confusing elements?
+2. With more time, what would you have wanted to improve?
+
+Notes:
+Create form elements with ios is really challenging, compare to form support in web development. Have a lot of things to improve for this assignment like: remember filter settings when reopen modal, custom UISwitch, implement detail page, ...
+
 
 ## Video Walkthrough
 
