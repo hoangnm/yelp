@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, FiltersViewControllerDelegate {
+class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate, FiltersViewControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -19,6 +19,11 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     var deals = false
     var sort: YelpSortMode?
     var distance: Float?
+    
+    var loadingMoreView:InfiniteScrollActivityView?
+    
+    var isMoreDataLoading = false
+    var offset = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +41,15 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         searchBar.searchBarStyle = .Prominent
         searchBar.delegate = self
         self.navigationItem.titleView = searchBar
+        
+        let frame = CGRectMake(0, tableView.contentSize.height, tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
+        loadingMoreView = InfiniteScrollActivityView(frame: frame)
+        loadingMoreView!.hidden = true
+        tableView.addSubview(loadingMoreView!)
+        
+        var insets = tableView.contentInset;
+        insets.bottom += InfiniteScrollActivityView.defaultHeight;
+        tableView.contentInset = insets
 
 /* Example of Yelp search with more search options specified
         Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
@@ -87,7 +101,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        Business.searchWithTerm(term, sort: sort, categories: categories, deals: deals, distance: distance) { (businesses: [Business]!, error: NSError!) -> Void in
+        offset = 0
+        Business.searchWithTerm(term, sort: sort, categories: categories, deals: deals, distance: distance, limit: 20, offset: offset) { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
         }
@@ -97,7 +112,30 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         term = searchText
     }
 
+    
+    // UIScrollViewDelegate
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if !isMoreDataLoading {
+            let scrollViewContentHeight = tableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+            
+            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.dragging) {
+                isMoreDataLoading = true
+                offset += 20
+                // Update position of loadingMoreView, and start loading indicator
+                let frame = CGRectMake(0, tableView.contentSize.height, tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
+                loadingMoreView?.frame = frame
+                loadingMoreView!.startAnimating()
 
+                Business.searchWithTerm(term, sort: sort, categories: categories, deals: deals, distance: distance, limit: 20, offset: offset) { (businesses: [Business]!, error: NSError!) -> Void in
+                    self.businesses.appendContentsOf(businesses)
+                    self.loadingMoreView!.stopAnimating()
+                    self.tableView.reloadData()
+                    self.isMoreDataLoading = false
+                }
+            }
+        }
+    }
     
     // MARK: - Navigation
 
@@ -127,7 +165,9 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             distance = distance! * 1609.344
         }
         
-        Business.searchWithTerm(term, sort: sort, categories: categories, deals: deals, distance: distance) { (businesses: [Business]!, error: NSError!) -> Void in
+        offset = 0
+        
+        Business.searchWithTerm(term, sort: sort, categories: categories, deals: deals, distance: distance, limit: 20, offset: offset) { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
         }
