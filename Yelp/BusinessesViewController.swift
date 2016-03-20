@@ -84,6 +84,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
     
+    
     // MARK: - UISearchbarDelegate
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {

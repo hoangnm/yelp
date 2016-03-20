@@ -98,7 +98,6 @@
 		222D8A5719CCF9F900D2DB53 /* Yelp */ = {
 			isa = PBXGroup;
 			children = (
-				34DAEF271C9E2BD800FD8AE5 /* components */,
 				347DA91A1C9C4F83002B21EB /* Views */,
 				22AAAA9A1AEA0AA100A544AF /* Models */,
 				222D8A7A19CCFAAA00D2DB53 /* API */,
@@ -171,13 +170,6 @@
 				34DAEF2F1C9EB61D00FD8AE5 /* InfiniteScrollActivityView.swift */,
 			);
 			name = Views;
-			sourceTree = "<group>";
-		};
-		34DAEF271C9E2BD800FD8AE5 /* components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = components;
 			sourceTree = "<group>";
 		};
 		4A7CA25ACD374CA0AC966A24 /* Frameworks */ = {

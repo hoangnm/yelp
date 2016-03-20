@@ -38,6 +38,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        tableView.rowHeight = 40
     }
 
     override func didReceiveMemoryWarning() {
@@ -146,38 +148,24 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         return 4
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return ""
-        } else if section == 1 {
-            return "Sort By"
-        } else if section == 2 {
-            return "Distance"
-        } else {
-            return "Category"
-        }
-    }
-    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 1 {
             if indexPath.row == 0 {
                 showSortOptions = !showSortOptions
-                tableView.reloadData()
             } else {
                 selectedOptions = indexPath.row
                 showSortOptions = false
-                tableView.reloadData()
             }
         } else if indexPath.section == 2 {
             if indexPath.row == 0 {
                 showDistanceOptions = !showDistanceOptions
-                tableView.reloadData()
             } else {
                 selectedDistance = indexPath.row
                 showDistanceOptions = false
-                tableView.reloadData()
             }
         }
+        let sections = NSIndexSet(index: indexPath.section)
+        tableView.reloadSections(sections, withRowAnimation: .Automatic)
     }
     
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
@@ -192,6 +180,31 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     func sortByOptions() -> [Int: String] {
         let options = [0: "Distance", 1: "Best Matched", 2: "Highest Rated"]
         return options
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 18))
+        /* Create custom view to display section header... */
+        let label = UILabel(frame: CGRectMake(10, 5, tableView.frame.size.width, 18))
+        //let string =[list objectAtIndex:section];
+        /* Section header is in 0th index... */
+        //[label setText:string];
+        //[view addSubview:label];
+        let text: String
+        if section == 0 {
+            text = ""
+        } else if section == 1 {
+            text = "Sort By"
+        } else if section == 2 {
+            text = "Distance"
+        } else {
+            text = "Category"
+        }
+        label.text = text
+        //print(tableView.
+        view.insertSubview(label, atIndex: 0)
+        //view.backgroundColor = UIColor(colorLiteralRed: 166/255.0, green: 177/255.0, blue: 186/255.0, alpha: 1.0)
+        return view;
     }
     
     func yelpCategories() -> [[String: String]] {
