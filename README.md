@@ -34,11 +34,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 1. What were the most challenging or confusing elements?
 2. With more time, what would you have wanted to improve?
-
-Notes:
-Create form elements with ios is really challenging, compare to form support in web development. Have a lot of things to improve for this assignment like: remember filter settings when reopen modal, custom UISwitch, implement detail page, ...
-
-
+3. 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
@@ -49,7 +45,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Create form elements with ios is really challenging, compare to form support in web development. Have a lot of things to improve for this assignment like: remember filter settings when reopen modal, custom UISwitch, implement detail page, ...
 
 ## License
 
