@@ -94,12 +94,19 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func searchBarTextDidEndEditing(searchBar: UISearchBar) {
-        
+        if term.isEmpty {
+            offset = 0
+            Business.searchWithTerm(term, sort: sort, categories: categories, deals: deals, distance: distance, limit: 20, offset: offset) { (businesses: [Business]!, error: NSError!) -> Void in
+                self.businesses = businesses
+                self.tableView.reloadData()
+            }
+        }
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.resignFirstResponder()
+        
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
