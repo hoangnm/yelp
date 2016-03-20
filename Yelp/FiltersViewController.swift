@@ -20,13 +20,17 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var categories: [[String: String]]!
     var switchStates = [Int:Bool]()
+    var sortOptions = [Int: String]()
     var hasDeals = false
+    var showSortOptions = true
+    var selectedOptions: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         categories = yelpCategories()
+        sortOptions = sortByOptions()
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -56,46 +60,84 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
         filters["hasDeals"] = hasDeals
         
+        if selectedOptions != nil {
+            filters["sort"] = selectedOptions
+        }
+        
         delegate?.filtersViewController?(self, didUpdateFilters: filters)
         
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 1 {
-            return categories.count
-        } else {
+        if section == 0 {
             return 1
+        } else if section == 1 {
+            if showSortOptions {
+                return sortOptions.count + 1
+            } else {
+                return 1
+            }
+        } else {
+            return categories.count
         }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
-            cell.delegate = self
-            cell.switchLabel.text = categories[indexPath.row]["name"]
-            cell.onSwitch.on = switchStates[indexPath.row] ?? false
-            cell.type = "country"
+            let cell = tableView.dequeueReusableCellWithIdentifier("CheckCell", forIndexPath: indexPath) as! CheckCell
+            if indexPath.row == 0 {
+                cell.checkButton.setImage(UIImage(named: "expanddown"), forState: .Normal)
+                if selectedOptions != nil {
+                    cell.checkLabel.text = sortOptions[selectedOptions! - 1]!
+                } else {
+                    cell.checkLabel.text = "Default"
+                }
+            } else {
+                cell.checkLabel.text = sortOptions[indexPath.row - 1]
+            }
             return cell
-        } else {
+        } else if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
             cell.delegate = self
             cell.switchLabel.text = "Offering a Deal"
             cell.onSwitch.on = hasDeals
             cell.type = "deal"
             return cell
+        } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
+            cell.delegate = self
+            cell.switchLabel.text = categories[indexPath.row]["name"]
+            cell.onSwitch.on = switchStates[indexPath.row] ?? false
+            cell.type = "country"
+            return cell
         }
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             return ""
+        } else if section == 1 {
+            return "Sort By"
         } else {
             return "Category"
+        }
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 1 {
+            if indexPath.row == 0 {
+                showSortOptions = !showSortOptions
+                tableView.reloadData()
+            } else {
+                selectedOptions = indexPath.row
+                showSortOptions = false
+                tableView.reloadData()
+            }
         }
     }
     
@@ -106,6 +148,11 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         } else {
             hasDeals = value
         }
+    }
+    
+    func sortByOptions() -> [Int: String] {
+        let options = [0: "Distance", 1: "Best Matched", 2: "Highest Rated"]
+        return options
     }
     
     func yelpCategories() -> [[String: String]] {

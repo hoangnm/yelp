@@ -183,6 +183,40 @@
                                             <outlet property="switchLabel" destination="oq2-vj-7OG" id="llk-fq-xMm"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CheckCell" id="w1H-9O-zG8" customClass="CheckCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="158" width="320" height="66"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="w1H-9O-zG8" id="CCX-TB-WNz">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="65.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n9L-DG-V9e">
+                                                    <rect key="frame" x="8" y="22" width="42" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6B9-A5-2Ig">
+                                                    <rect key="frame" x="282" y="17" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="P4J-p8-sk5"/>
+                                                        <constraint firstAttribute="width" constant="30" id="ucZ-0a-sYS"/>
+                                                    </constraints>
+                                                    <state key="normal" image="check"/>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="6B9-A5-2Ig" secondAttribute="trailing" constant="8" id="nR2-0g-k5j"/>
+                                                <constraint firstItem="n9L-DG-V9e" firstAttribute="leading" secondItem="CCX-TB-WNz" secondAttribute="leading" constant="8" id="s97-hv-H0p"/>
+                                                <constraint firstItem="n9L-DG-V9e" firstAttribute="centerY" secondItem="CCX-TB-WNz" secondAttribute="centerY" id="sKv-Yb-xmL"/>
+                                                <constraint firstItem="6B9-A5-2Ig" firstAttribute="centerY" secondItem="CCX-TB-WNz" secondAttribute="centerY" id="veU-Fj-pDV"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="checkButton" destination="6B9-A5-2Ig" id="kPP-z4-551"/>
+                                            <outlet property="checkLabel" destination="n9L-DG-V9e" id="VUI-HT-gtc"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
@@ -251,4 +285,7 @@
             <point key="canvasLocation" x="1643" y="338"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="check" width="50" height="50"/>
+    </resources>
 </document>
