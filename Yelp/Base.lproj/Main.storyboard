@@ -124,7 +124,8 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1Vo-Ny-euu">
-                        <barButtonItem key="leftBarButtonItem" title="Filters" id="qFf-YQ-qyy">
+                        <barButtonItem key="leftBarButtonItem" title="Filter" id="qFf-YQ-qyy">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="w63-8R-0kP" kind="modal" id="R8F-zY-dub"/>
                             </connections>
@@ -162,13 +163,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oq2-vj-7OG">
-                                                    <rect key="frame" x="8" y="9.5" width="42" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="8" y="9.5" width="43.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fCN-od-jHF">
-                                                    <rect key="frame" x="243" y="4.5" width="51" height="31"/>
+                                                    <rect key="frame" x="243" y="4" width="51" height="31"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -191,8 +192,8 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n9L-DG-V9e">
-                                                    <rect key="frame" x="8" y="9.5" width="42" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="8" y="9.5" width="43.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -202,7 +203,7 @@
                                                         <constraint firstAttribute="height" constant="30" id="P4J-p8-sk5"/>
                                                         <constraint firstAttribute="width" constant="30" id="ucZ-0a-sYS"/>
                                                     </constraints>
-                                                    <state key="normal" image="check"/>
+                                                    <state key="normal" image="round"/>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -230,11 +231,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="Filters" id="UtM-am-iR8">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="8dM-x9-K2h">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="onCancelButton:" destination="B3r-WC-VWN" id="4Tk-VF-0dy"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Search" id="jA9-vs-S6T">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="onSearchButton:" destination="B3r-WC-VWN" id="Usq-5k-JWt"/>
                             </connections>
@@ -256,6 +259,13 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UzU-5I-ttm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.86965144230769231" green="0.21517355467274371" blue="0.17823028602399907" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -274,6 +284,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="9Qe-W0-ChM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.86965144230000002" green="0.21517355469999999" blue="0.17823028599999999" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -286,6 +297,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="check" width="50" height="50"/>
+        <image name="round" width="50" height="50"/>
     </resources>
 </document>

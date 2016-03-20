@@ -19,6 +19,7 @@ class CheckCell: UITableViewCell {
         self.contentView.layer.borderColor = UIColor(colorLiteralRed: 0.5, green: 0.5, blue: 0, alpha: 0.5).CGColor
         self.contentView.layer.borderWidth = 0.8
         self.contentView.layer.cornerRadius = 3
+        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

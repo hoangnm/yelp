@@ -40,6 +40,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.dataSource = self
         
         tableView.rowHeight = 40
+        
+        navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
     }
 
     override func didReceiveMemoryWarning() {
@@ -111,6 +113,12 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
                     cell.checkLabel.text = "Default"
                 }
             } else {
+                if selectedOptions != nil && selectedOptions == indexPath.row {
+                    cell.checkButton.setImage(UIImage(named: "roundok"), forState: .Normal)
+                } else {
+                    cell.checkButton.setImage(UIImage(named: "round"), forState: .Normal)
+                }
+               // cell.checkButton.setImage(UIImage(named: "roundok"), forState: .Focused)
                 cell.checkLabel.text = sortOptions[indexPath.row - 1]
             }
             return cell
@@ -123,6 +131,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             return cell
         } else if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCellWithIdentifier("CheckCell", forIndexPath: indexPath) as! CheckCell
+            print(indexPath.row)
+            
             if indexPath.row == 0 {
                 cell.checkButton.setImage(UIImage(named: "expanddown"), forState: .Normal)
                 if selectedDistance != nil {
@@ -131,6 +141,11 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
                     cell.checkLabel.text = "Auto"
                 }
             } else {
+                if selectedDistance != nil && selectedDistance == indexPath.row {
+                    cell.checkButton.setImage(UIImage(named: "roundok"), forState: .Normal)
+                } else {
+                    cell.checkButton.setImage(UIImage(named: "round"), forState: .Normal)
+                }
                 cell.checkLabel.text = String(distanceOptions[indexPath.row - 1]) + "miles"
             }
             return cell
