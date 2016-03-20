@@ -40,6 +40,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
         searchBar.searchBarStyle = .Prominent
         searchBar.delegate = self
+        searchBar.placeholder = "Search..."
+
         self.navigationItem.titleView = searchBar
         
         let frame = CGRectMake(0, tableView.contentSize.height, tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)

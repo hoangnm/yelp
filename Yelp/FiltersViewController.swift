@@ -198,13 +198,6 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 18))
-        /* Create custom view to display section header... */
-        let label = UILabel(frame: CGRectMake(10, 5, tableView.frame.size.width, 18))
-        //let string =[list objectAtIndex:section];
-        /* Section header is in 0th index... */
-        //[label setText:string];
-        //[view addSubview:label];
         let text: String
         if section == 0 {
             text = ""
@@ -215,11 +208,20 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         } else {
             text = "Category"
         }
+        let view = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 30))
+        let label = UILabel(frame: CGRectMake(0, 5, tableView.frame.size.width, 30))
+
         label.text = text
-        //print(tableView.
         view.insertSubview(label, atIndex: 0)
-        //view.backgroundColor = UIColor(colorLiteralRed: 166/255.0, green: 177/255.0, blue: 186/255.0, alpha: 1.0)
         return view;
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 10
+        } else {
+            return 40
+        }
     }
     
     func yelpCategories() -> [[String: String]] {

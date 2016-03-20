@@ -24,10 +24,10 @@ class SwitchCell: UITableViewCell {
         // Initialization code
         
         onSwitch.addTarget(self, action: "switchValueChanged", forControlEvents: .ValueChanged)
-        self.contentView.layer.borderColor = UIColor(colorLiteralRed: 0.5, green: 0.5, blue: 0, alpha: 0.5).CGColor
+        self.contentView.layer.borderColor = UIColor(hue: 0.23, saturation: 0.01, brightness: 0.75, alpha: 0.6).CGColor
         self.contentView.layer.borderWidth = 0.8
         self.contentView.layer.cornerRadius = 3
-        
+   
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
