@@ -77,10 +77,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             filters["distance"] = distanceOptions[selectedDistance! - 1]
         }
         
-        
-        delegate?.filtersViewController?(self, didUpdateFilters: filters)
-        
         dismissViewControllerAnimated(true, completion: nil)
+        delegate?.filtersViewController?(self, didUpdateFilters: filters)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EZLoadingActivity
 
 class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate, FiltersViewControllerDelegate {
 
@@ -32,9 +33,10 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
-        
+        EZLoadingActivity.show("Loading...", disableUI: true)
         Business.searchWithTerm("Thai", completion: { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
+            EZLoadingActivity.hide()
             self.tableView.reloadData()
         })
         
@@ -176,7 +178,6 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         
         offset = 0
-        
         Business.searchWithTerm(term, sort: sort, categories: categories, deals: deals, distance: distance, limit: 20, offset: offset) { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
